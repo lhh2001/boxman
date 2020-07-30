@@ -27,9 +27,27 @@
     <ClInclude Include="boxman.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlay.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxman.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlay.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -43,6 +61,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="boxman.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="nimotsuKunImage.dds">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

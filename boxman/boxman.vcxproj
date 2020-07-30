@@ -158,15 +158,22 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="GamePlay.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxman.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="GamePlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="boxman.ico" />
+    <Image Include="nimotsuKunImage.dds" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
