@@ -1,7 +1,6 @@
-#pragma warning(disable:4996)
-
 #include "GamePlay.h"
 #include "Image.h"
+#include <fstream>
 
 extern Image* gameImage;
 
@@ -16,20 +15,20 @@ GamePlay::GamePlay(std::string input) : step(0)
 void GamePlay::initMap(std::string input) //初始化地图
 {
     input = "maps/" + input + ".txt";
-    FILE* fp = fopen(input.c_str(), "r");
+    std::ifstream f(input, std::ifstream::binary);
     char c;
-    fscanf(fp, "%d %d", &n, &m);
+    f >> n >> m;
     for (int i = 0; i < n; i++)
     {
         map.push_back({});
         image.push_back({});
-        //cout << endl;
         for (int j = 0; j < m; j++)
         {
             do
             {
-                fscanf(fp, "%c", &c);
-            } while (c == '\n');
+               c = f.get();
+            } while (c == '\n' || c == '\r');
+            //GameLib::cout << c;
             map[i].push_back(c);
             image[i].push_back('\0');
             if (map[i][j] == '@')
@@ -47,8 +46,8 @@ void GamePlay::initMap(std::string input) //初始化地图
                 target.insert(std::make_pair(i, j));
             }
         }
+        //GameLib::cout << GameLib::endl;
     }
-    fclose(fp);
 }
 
 bool GamePlay::move(char c)
@@ -114,6 +113,14 @@ void GamePlay::draw()
         {
             if (tmp[i][j] != image[i][j])
             {
+                if (tmp[i][j] != '+')
+                {
+                    gameImage->draw(j, i, ' ');
+                }
+                if (image[i][j] == '.')
+                {
+                    gameImage->draw(j, i, '.');
+                }
                 gameImage->draw(j, i, tmp[i][j]);
             }
         }

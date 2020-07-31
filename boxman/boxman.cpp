@@ -1,18 +1,11 @@
 ﻿#include "GameLib/Framework.h"
 #include "Image.h"
 #include "GamePlay.h"
-#include <vector>
-#include <set>
-#include <string>
 
-using std::vector;
-using std::pair;
-using std::set;
-using std::make_pair;
-using std::string;
 using namespace GameLib;
 
 bool isInit;
+bool playerWantToQuit;
 Image* gameImage;
 GamePlay* myGame;
 
@@ -22,7 +15,7 @@ namespace GameLib
 	{
         if (!isInit)
         {
-            gameImage = new Image("nimotsuKunImage.dds");
+            gameImage = new Image("nimotsuKunImage2.dds");
             myGame = new GamePlay("3");
             isInit = true;
         }
@@ -30,8 +23,24 @@ namespace GameLib
         {
             char c;
             cin >> c;
-            myGame->move(c);
-            myGame->draw();
+            if (c == 'q')
+            {
+                playerWantToQuit = true;
+            }
+            else
+            {
+                myGame->move(c);
+                myGame->draw();
+            }
+        }
+        if (playerWantToQuit)
+        {
+            requestEnd();
+        }
+        if (isEndRequested())
+        {
+            delete myGame;
+            delete gameImage;
         }
 	}
 }

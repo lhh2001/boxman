@@ -8,8 +8,8 @@ const std::map<char, int> objToImageTable = {
 	{'@', 0},
 	{'+', 32},
 	{'#', 64},
-	{'.', 128},
-	{' ', 160}
+	{'.', 96},
+	{' ', 128}
 }; //记录物品在图片中对应的位置
 
 Image::Image(const char* fileName) : width(0), height(0), data(nullptr)
@@ -56,7 +56,11 @@ void Image::draw(int x, int y, char object)
 	{
 		for (int j = 0; j < gridSize; j++)
 		{
-			vram[(y * gridSize + j) * windowWidth + x * gridSize + i] = data[j * width + srcX + i];
+			int dataIndex = j * width + srcX + i;
+			if (data[dataIndex] & 0x80000000)
+			{
+				vram[(y * gridSize + j) * windowWidth + x * gridSize + i] = data[dataIndex];
+			}
 		}
 	}
 }
