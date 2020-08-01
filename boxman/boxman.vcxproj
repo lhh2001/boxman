@@ -162,12 +162,14 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="GamePlay.h" />
+    <ClInclude Include="Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxman.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="GamePlay.cpp" />
+    <ClCompile Include="Animation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc" />

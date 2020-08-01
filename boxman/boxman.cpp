@@ -1,6 +1,8 @@
 ﻿#include "GameLib/Framework.h"
 #include "Image.h"
 #include "GamePlay.h"
+#include "Animation.h"
+#include "boxman.h"
 
 using namespace GameLib;
 
@@ -11,11 +13,19 @@ char inputTable[5] = {
     'a', 's', 'w', 'd', 'q'
 };
 
+const int shiftX[4] = { 0, -1, 0, 1 };
+const int shiftY[4] = { -1, 0, 1, 0 };
+
+std::vector<std::vector<char>> map;   //存储原始地图, 不包含人和箱子
+std::vector<std::vector<char>> image; //上一帧的游戏画面
+
 bool isInit;
 bool playerWantToQuit;
 bool prevInput[INPUT_TYPE_SIZE]; //判断上一帧对应按键是否被按下
+
 Image* gameImage;
 GamePlay* myGame;
+Animation* myAnimation;
 
 namespace GameLib
 {
@@ -23,15 +33,20 @@ namespace GameLib
 	{
         if (!isInit)
         {
+            myAnimation = nullptr;
             gameImage = new Image("nimotsuKunImage2.dds");
             myGame = new GamePlay("3");
             isInit = true;
         }
         else
         {
-            if (myGame->getAnimeCnt())
+            if (myAnimation != nullptr)
             {
-                myGame->draw();
+                if (!myAnimation->draw())
+                {
+                    delete myAnimation;
+                    myAnimation = nullptr;
+                }
                 return;
             }
             bool nowInput[INPUT_TYPE_SIZE] = { false };

@@ -1,10 +1,10 @@
 #include "GamePlay.h"
 #include "Image.h"
+#include "Animation.h"
+#include "boxman.h"
 #include <fstream>
 
-extern Image* gameImage;
-
-GamePlay::GamePlay() : step(0), n(0), m(0), animeCnt(0), animeDir(-1) {}
+GamePlay::GamePlay() : step(0), n(0), m(0) {}
 
 GamePlay::GamePlay(std::string input) : step(0)
 {
@@ -53,40 +53,20 @@ void GamePlay::initMap(std::string input) //初始化地图
 
 void GamePlay::move(char c)
 {
-    int dir = -1;
-    switch (c)
-    {
-    case 'a':
-        dir = 0; //左
-        break;
-    case 'w':
-        dir = 1; //上
-        break;
-    case 'd':
-        dir = 2; //右
-        break;
-    case 's':
-        dir = 3; //下
-        break;
-    }
-    if (dir == -1)
+    static const std::map<char, int> dirTable = {
+        {'a', 0}, {'w', 1}, {'d', 2}, {'s', 3} //左 上 右 下
+    };
+    auto iter = dirTable.find(c);
+    if (iter == dirTable.end())
     {
         return;
     }
+    int dir = iter->second;
 
     std::pair<int, int> nowXY(manXY.first + shiftX[dir], manXY.second + shiftY[dir]);
     if (image[nowXY.first][nowXY.second] == ' ' || image[nowXY.first][nowXY.second] == '.')
     {
-        animeBackground.clear();
-        animeBackground.push_back(manXY);
-        animeBackground.push_back(nowXY);
-
-        animeForeground.clear();
-        animeForeground.push_back(manXY);
-
-        animeDir = dir;
-        animeCnt = 1;
-
+        myAnimation = new Animation(manXY, nowXY, dir);
         manXY = nowXY;
         step++;
     }
@@ -95,18 +75,7 @@ void GamePlay::move(char c)
         std::pair<int, int> nowBoxXY(nowXY.first + shiftX[dir], nowXY.second + shiftY[dir]);
         if (image[nowBoxXY.first][nowBoxXY.second] == ' ' || image[nowBoxXY.first][nowBoxXY.second] == '.')
         {
-            animeBackground.clear();
-            animeBackground.push_back(manXY);
-            animeBackground.push_back(nowXY);
-            animeBackground.push_back(nowBoxXY);
-
-            animeForeground.clear();
-            animeForeground.push_back(manXY);
-            animeForeground.push_back(nowXY);
-
-            animeDir = dir;
-            animeCnt = 1;
-
+            myAnimation = new Animation(manXY, nowXY, nowBoxXY, dir);
             manXY = nowXY;
             box.erase(nowXY);
             box.insert(nowBoxXY);
@@ -139,44 +108,15 @@ void GamePlay::draw()
                 {
                     gameImage->draw(j, i, '.');
                 }
+                if (tmp[i][j] == '@' && myAnimation != nullptr)
+                    continue;
+                if (tmp[i][j] == '#' && myAnimation != nullptr)
+                    continue;
                 gameImage->draw(j, i, tmp[i][j]);
             }
         }
     }
     image = tmp;
-    
-    if (animeCnt)
-    {
-        for (auto item : animeBackground)
-        {
-            int x = item.second;
-            int y = item.first;
-            gameImage->draw(x, y, ' ');
-            if (map[y][x] == '.')
-            {
-                gameImage->draw(x, y, '.');
-            }
-        }
-        for (auto item : animeForeground)
-        {
-            int x = item.second;
-            int y = item.first;
-            if (image[y + shiftX[animeDir]][x + shiftY[animeDir]] == '@')
-            {
-                gameImage->draw(x, y, '@', shiftY[animeDir] * animeCnt, shiftX[animeDir] * animeCnt);
-            }
-            else
-            {
-                gameImage->draw(x, y, '#', shiftY[animeDir] * animeCnt, shiftX[animeDir] * animeCnt);
-            }
-        }
-        if (animeCnt == gameImage->getGridSize())
-        {
-            animeCnt = 0;
-            return;
-        }
-        animeCnt++;
-    }
 }
 
 bool GamePlay::check()
@@ -196,7 +136,3 @@ int GamePlay::getStep() const
     return step;
 }
 
-int GamePlay::getAnimeCnt() const
-{
-    return animeCnt;
-}

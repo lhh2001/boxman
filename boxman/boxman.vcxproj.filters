@@ -36,6 +36,9 @@
     <ClInclude Include="GamePlay.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxman.cpp">
@@ -48,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="GamePlay.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
