@@ -2,16 +2,6 @@
 #include "Image.h"
 #include "File.h"
 
-const int gridSize = 32; //一个网格对应像素的数量
-
-const std::map<char, int> objToImageTable = {
-	{'@', 0},
-	{'+', 32},
-	{'#', 64},
-	{'.', 96},
-	{' ', 128}
-}; //记录物品在图片中对应的位置
-
 Image::Image(const char* fileName) : width(0), height(0), data(nullptr)
 {
 	File f(fileName);
@@ -47,7 +37,7 @@ int Image::getHeight() const
 	return height;
 }
 
-void Image::draw(int x, int y, char object)
+void Image::draw(int x, int y, char object, int shiftX, int shiftY)
 {
 	unsigned* vram = GameLib::Framework::instance().videoMemory();
 	unsigned windowWidth = GameLib::Framework::instance().width();
@@ -59,8 +49,13 @@ void Image::draw(int x, int y, char object)
 			int dataIndex = j * width + srcX + i;
 			if (data[dataIndex] & 0x80000000)
 			{
-				vram[(y * gridSize + j) * windowWidth + x * gridSize + i] = data[dataIndex];
+				vram[(y * gridSize + j + shiftY) * windowWidth + x * gridSize + i + shiftX] = data[dataIndex];
 			}
 		}
 	}
+}
+
+int Image::getGridSize() const
+{
+	return gridSize;
 }

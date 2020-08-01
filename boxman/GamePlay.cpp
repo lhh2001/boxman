@@ -4,7 +4,7 @@
 
 extern Image* gameImage;
 
-GamePlay::GamePlay() : step(0) {}
+GamePlay::GamePlay() : step(0), n(0), m(0), animeCnt(0), animeDir(-1) {}
 
 GamePlay::GamePlay(std::string input) : step(0)
 {
@@ -48,14 +48,11 @@ void GamePlay::initMap(std::string input) //≥ı ºªØµÿÕº
         }
         //GameLib::cout << GameLib::endl;
     }
+    f.close();
 }
 
-bool GamePlay::move(char c)
+void GamePlay::move(char c)
 {
-    if (c == 'e')
-    {
-        return false;
-    }
     int dir = -1;
     switch (c)
     {
@@ -74,12 +71,22 @@ bool GamePlay::move(char c)
     }
     if (dir == -1)
     {
-        return true;
+        return;
     }
 
     std::pair<int, int> nowXY(manXY.first + shiftX[dir], manXY.second + shiftY[dir]);
     if (image[nowXY.first][nowXY.second] == ' ' || image[nowXY.first][nowXY.second] == '.')
     {
+        animeBackground.clear();
+        animeBackground.push_back(manXY);
+        animeBackground.push_back(nowXY);
+
+        animeForeground.clear();
+        animeForeground.push_back(manXY);
+
+        animeDir = dir;
+        animeCnt = 1;
+
         manXY = nowXY;
         step++;
     }
@@ -88,13 +95,24 @@ bool GamePlay::move(char c)
         std::pair<int, int> nowBoxXY(nowXY.first + shiftX[dir], nowXY.second + shiftY[dir]);
         if (image[nowBoxXY.first][nowBoxXY.second] == ' ' || image[nowBoxXY.first][nowBoxXY.second] == '.')
         {
+            animeBackground.clear();
+            animeBackground.push_back(manXY);
+            animeBackground.push_back(nowXY);
+            animeBackground.push_back(nowBoxXY);
+
+            animeForeground.clear();
+            animeForeground.push_back(manXY);
+            animeForeground.push_back(nowXY);
+
+            animeDir = dir;
+            animeCnt = 1;
+
             manXY = nowXY;
             box.erase(nowXY);
             box.insert(nowBoxXY);
             step++;
         }
     }
-    return true;
 }
 
 void GamePlay::draw()
@@ -126,6 +144,39 @@ void GamePlay::draw()
         }
     }
     image = tmp;
+    
+    if (animeCnt)
+    {
+        for (auto item : animeBackground)
+        {
+            int x = item.second;
+            int y = item.first;
+            gameImage->draw(x, y, ' ');
+            if (map[y][x] == '.')
+            {
+                gameImage->draw(x, y, '.');
+            }
+        }
+        for (auto item : animeForeground)
+        {
+            int x = item.second;
+            int y = item.first;
+            if (image[y + shiftX[animeDir]][x + shiftY[animeDir]] == '@')
+            {
+                gameImage->draw(x, y, '@', shiftY[animeDir] * animeCnt, shiftX[animeDir] * animeCnt);
+            }
+            else
+            {
+                gameImage->draw(x, y, '#', shiftY[animeDir] * animeCnt, shiftX[animeDir] * animeCnt);
+            }
+        }
+        if (animeCnt == gameImage->getGridSize())
+        {
+            animeCnt = 0;
+            return;
+        }
+        animeCnt++;
+    }
 }
 
 bool GamePlay::check()
@@ -140,7 +191,12 @@ bool GamePlay::check()
     }
 }
 
-int GamePlay::getStep()
+int GamePlay::getStep() const
 {
     return step;
+}
+
+int GamePlay::getAnimeCnt() const
+{
+    return animeCnt;
 }

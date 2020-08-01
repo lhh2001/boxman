@@ -4,8 +4,16 @@
 
 using namespace GameLib;
 
+const int INPUT_TYPE_SIZE = 5; //输入按键情况数量
+const int INPUT_Q = 4;         //按键Q对应的下标
+
+char inputTable[5] = {
+    'a', 's', 'w', 'd', 'q'
+};
+
 bool isInit;
 bool playerWantToQuit;
+bool prevInput[INPUT_TYPE_SIZE]; //判断上一帧对应按键是否被按下
 Image* gameImage;
 GamePlay* myGame;
 
@@ -21,18 +29,36 @@ namespace GameLib
         }
         else
         {
-            char c;
-            cin >> c;
-            if (c == 'q')
+            if (myGame->getAnimeCnt())
+            {
+                myGame->draw();
+                return;
+            }
+            bool nowInput[INPUT_TYPE_SIZE] = { false };
+            Framework f = Framework::instance();
+            for (int i = 0; i < INPUT_TYPE_SIZE; i++)
+            {
+                nowInput[i] = f.isKeyOn(inputTable[i]);
+                if (nowInput[i] && !prevInput[i])
+                {
+                    myGame->move(inputTable[i]);
+                    myGame->draw();
+                }
+                prevInput[i] = nowInput[i];
+            }
+            if (nowInput[INPUT_Q])
             {
                 playerWantToQuit = true;
             }
-            else
-            {
-                myGame->move(c);
-                myGame->draw();
-            }
         }
+
+        if (myGame->check())
+        {
+            playerWantToQuit = true;
+            GameLib::cout << "恭喜! 您共用" 
+                << myGame->getStep() << "步通关!" << GameLib::endl;
+        }
+
         if (playerWantToQuit)
         {
             requestEnd();
@@ -44,37 +70,3 @@ namespace GameLib
         }
 	}
 }
-
-/*
-void drawCell(char c, int x, int y)
-{
-    unsigned* vram = Framework::instance().videoMemory();
-    unsigned color = 0;
-    int windowWidth = Framework::instance().width();
-
-    switch (c)
-    {
-    case '+':
-        color = 0xffffff;
-        break;
-    case '#':
-        color = 0xff00ff;
-        break;
-    case '@':
-        color = 0x00ffff;
-        break;
-    case '.':
-        color = 0x0000ff;
-        break;
-    default:
-        break;
-    }
-    for (int i = 0; i < 16; i++)
-    {
-        for (int j = 0; j < 16; j++)
-        {
-            vram[(y * 16 + i) * windowWidth + (x * 16 + j)] = color;
-        }
-    }
-}
-*/
