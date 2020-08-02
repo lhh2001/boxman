@@ -28,7 +28,6 @@ void GamePlay::initMap(std::string input) //初始化地图
             {
                c = f.get();
             } while (c == '\n' || c == '\r');
-            //GameLib::cout << c;
             map[i].push_back(c);
             image[i].push_back('\0');
             if (map[i][j] == '@')
@@ -46,7 +45,6 @@ void GamePlay::initMap(std::string input) //初始化地图
                 target.insert(std::make_pair(i, j));
             }
         }
-        //GameLib::cout << GameLib::endl;
     }
     f.close();
 }
@@ -64,15 +62,16 @@ void GamePlay::move(char c)
     int dir = iter->second;
 
     std::pair<int, int> nowXY(manXY.first + shiftX[dir], manXY.second + shiftY[dir]);
-    if (image[nowXY.first][nowXY.second] == ' ' || image[nowXY.first][nowXY.second] == '.')
+    if (image[nowXY.first][nowXY.second] == ' ' || image[nowXY.first][nowXY.second] == '.') //走一格到空地
     {
         myAnimation = new Animation(manXY, nowXY, dir);
         manXY = nowXY;
         step++;
     }
-    else if (image[nowXY.first][nowXY.second] == '#')
+    else if (image[nowXY.first][nowXY.second] == '#') //碰到箱子
     {
         std::pair<int, int> nowBoxXY(nowXY.first + shiftX[dir], nowXY.second + shiftY[dir]);
+        //检查是否可以推着箱子到下一格
         if (image[nowBoxXY.first][nowBoxXY.second] == ' ' || image[nowBoxXY.first][nowBoxXY.second] == '.')
         {
             myAnimation = new Animation(manXY, nowXY, nowBoxXY, dir);
@@ -135,4 +134,3 @@ int GamePlay::getStep() const
 {
     return step;
 }
-

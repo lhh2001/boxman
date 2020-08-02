@@ -10,8 +10,8 @@ class Animation
 private:
 	std::vector<vec2> background; //存储动画播放的背景(不移动的物体)
 	std::vector<vec2> foreground; //存储动画需要移动的物体
-	int cnt; //动画已经播放的帧数
-	int dir; //动画来时的方向
+	int cnt;                      //动画已经播放的帧数
+	int dir;                      //动画来时的方向
 
 public:
 	Animation();
@@ -21,4 +21,3 @@ public:
 };
 
 #endif // !INCLUDED_ANIMATION_H
-

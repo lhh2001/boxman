@@ -4,7 +4,8 @@
 
 Animation::Animation() : cnt(0), dir(-1) {}
 
-Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir) : cnt(0), dir(paramDir)
+Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir)
+    : cnt(0), dir(paramDir)
 {
 	background.push_back(manXY);
 	background.push_back(nowXY);
@@ -12,7 +13,8 @@ Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir) : cnt(0), dir(paramDi
 	foreground.push_back(manXY);
 }
 
-Animation::Animation(vec2 manXY, vec2 nowXY, vec2 nowBoxXY, int paramDir) : cnt(1), dir(paramDir)
+Animation::Animation(vec2 manXY, vec2 nowXY, vec2 nowBoxXY, int paramDir)
+    : cnt(1), dir(paramDir)
 {
 	background.push_back(manXY);
 	background.push_back(nowXY);

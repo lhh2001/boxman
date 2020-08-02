@@ -34,16 +34,12 @@ unsigned File::getUnsigned(int pos) const
 {
 	const unsigned char* up;
 	up = reinterpret_cast<const unsigned char*>(data);
-	unsigned ret = up[pos];
-	ret |= up[pos + 1] << 8;
-	ret |= up[pos + 2] << 16;
-	ret |= up[pos + 3] << 24;
-	/*
+	up += pos;
+	unsigned ret = 0;
 	for (int i = 0; i <= 24; i += 8) //i表示移位数
 	{
 		ret |= (*up) << i;
 		up++;
 	}
-	*/
 	return ret;
 }
