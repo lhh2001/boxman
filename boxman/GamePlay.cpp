@@ -1,7 +1,7 @@
 #include "GamePlay.h"
 #include "Image.h"
 #include "Animation.h"
-#include "boxman.h"
+#include "Boxman.h"
 #include <fstream>
 
 GamePlay::GamePlay() : step(0), n(0), m(0) {}

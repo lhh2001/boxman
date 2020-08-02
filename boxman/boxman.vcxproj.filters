@@ -24,9 +24,6 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="boxman.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="File.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -39,11 +36,11 @@
     <ClInclude Include="Animation.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Boxman.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxman.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="File.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Boxman.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

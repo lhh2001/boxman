@@ -2,7 +2,7 @@
 #include "Image.h"
 #include "GamePlay.h"
 #include "Animation.h"
-#include "boxman.h"
+#include "Boxman.h"
 
 using namespace GameLib;
 

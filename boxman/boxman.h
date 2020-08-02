@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDED_BOXMAN_H
+#define INCLUDED_BOXMAN_H
 
 class Image;
 class GamePlay;
@@ -13,3 +14,5 @@ extern std::vector<std::vector<char>> image; //上一帧的游戏画面
 extern Image* gameImage;
 extern GamePlay* myGame;
 extern Animation* myAnimation;
+
+#endif // !INCLUDED_BOXMAN_H

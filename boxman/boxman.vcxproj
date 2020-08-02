@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="boxman.h" />
+    <ClInclude Include="Boxman.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -165,7 +165,7 @@
     <ClInclude Include="Animation.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxman.cpp" />
+    <ClCompile Include="Boxman.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="GamePlay.cpp" />
