@@ -22,7 +22,6 @@ std::vector<std::vector<char>> image; //上一帧的游戏画面
 
 bool isInit;
 bool playerWantToQuit;
-bool prevInput[INPUT_TYPE_SIZE]; //判断上一帧对应按键是否被按下
 
 unsigned previousTime[fpsRateSize];
 unsigned frameRate;
@@ -35,6 +34,10 @@ namespace GameLib
 {
 	void Framework::update()
 	{
+        while (time() - previousTime[fpsRateSize - 1] < 16)
+        {
+            sleep(1);
+        }
         unsigned currentTime = time();
         unsigned frameTime = currentTime - previousTime[0];
         for (int i = 0; i < fpsRateSize - 1; i++)
@@ -44,6 +47,7 @@ namespace GameLib
         previousTime[fpsRateSize - 1] = currentTime;
         frameRate = 1000 * fpsRateSize / frameTime;
         cout << frameRate << endl;
+
         if (!isInit)
         {
             myAnimation = nullptr;
@@ -62,19 +66,17 @@ namespace GameLib
                 }
                 return;
             }
-            bool nowInput[INPUT_TYPE_SIZE] = { false };
             Framework f = Framework::instance();
             for (int i = 0; i < INPUT_TYPE_SIZE; i++)
             {
-                nowInput[i] = f.isKeyOn(inputTable[i]);
-                if (nowInput[i] && !prevInput[i])
+                if (f.isKeyOn(inputTable[i]))
                 {
                     myGame->move(inputTable[i]);
                     myGame->draw();
+                    break;
                 }
-                prevInput[i] = nowInput[i];
             }
-            if (nowInput[INPUT_Q])
+            if (f.isKeyOn(inputTable[INPUT_Q]))
             {
                 playerWantToQuit = true;
             }

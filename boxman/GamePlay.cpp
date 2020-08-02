@@ -99,6 +99,10 @@ void GamePlay::draw()
         {
             if (tmp[i][j] != image[i][j])
             {
+                if (image[i][j] == '@' || tmp[i][j] == '@' && myAnimation != nullptr)
+                    continue;
+                if (image[i][j] == '#' || tmp[i][j] == '#' && myAnimation != nullptr)
+                    continue;
                 if (tmp[i][j] != '+')
                 {
                     gameImage->draw(j, i, ' ');
@@ -107,10 +111,6 @@ void GamePlay::draw()
                 {
                     gameImage->draw(j, i, '.');
                 }
-                if (tmp[i][j] == '@' && myAnimation != nullptr)
-                    continue;
-                if (tmp[i][j] == '#' && myAnimation != nullptr)
-                    continue;
                 gameImage->draw(j, i, tmp[i][j]);
             }
         }
