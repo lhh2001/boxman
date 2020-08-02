@@ -97,6 +97,8 @@ namespace GameLib
         {
             delete myGame;
             delete gameImage;
+            map.~vector();
+            image.~vector();
         }
 	}
 }
