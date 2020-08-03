@@ -22,56 +22,102 @@ std::vector<std::vector<char>> image; //上一帧的游戏画面
 
 bool isInit;
 bool playerWantToQuit;
+bool isTitleSequence;
+bool isLoadingShown;
 
-Image* gameImage;
-GamePlay* myGame;
-Animation* myAnimation;
+Image* gameImage(nullptr);
+GamePlay* myGame(nullptr);
+Animation* myAnimation(nullptr);
+Image* titleImage(nullptr);
+
+void title()
+{
+    Framework f = Framework::instance();
+    if (titleImage == nullptr)
+    {
+        titleImage = new Image("title.dds");
+        titleImage->drawEntire();
+    }
+    if (f.isKeyTriggered(' '))
+    {
+        SAFE_DELETE(titleImage);
+        isTitleSequence = true;
+    }
+    if (f.isKeyOn(inputTable[INPUT_Q]))
+    {
+        SAFE_DELETE(titleImage);
+        playerWantToQuit = true;
+    }
+}
+
+void game()
+{
+    Framework f = Framework::instance();
+    if (!isInit)
+    {
+        f.setFrameRate(FPS);
+        myAnimation = nullptr;
+        gameImage = new Image("nimotsuKunImage2.dds");
+        myGame = new GamePlay("3");
+        isInit = true;
+        Image loadingImage("loading.dds");
+        loadingImage.drawEntire();
+        isLoadingShown = false;
+    }
+    else
+    {
+        if (!isLoadingShown)
+        {
+            f.sleep(1000);
+            isLoadingShown = true;
+        }
+        if (myAnimation != nullptr)
+        {
+            if (!myAnimation->draw())
+            {
+                SAFE_DELETE(myAnimation);
+            }
+            return;
+        }
+
+        if (myGame->check())
+        {
+            isTitleSequence = false;
+            isInit = false;
+            GameLib::cout << "恭喜! 您共用"
+                << myGame->getStep() << "步通关!" << GameLib::endl;
+            SAFE_DELETE(myGame);
+            SAFE_DELETE(gameImage);
+            return;
+        }
+        for (int i = 0; i < INPUT_TYPE_SIZE; i++)
+        {
+            if (f.isKeyOn(inputTable[i]))
+            {
+                myGame->move(inputTable[i]);
+                break;
+            }
+        }
+        myGame->draw();
+        if (f.isKeyOn(inputTable[INPUT_Q]))
+        {
+            playerWantToQuit = true;
+        }
+    }
+}
 
 namespace GameLib
 {
 	void Framework::update()
 	{
         cout << frameRate() << endl;
-        if (!isInit)
+        if (!isTitleSequence)
         {
-            setFrameRate(FPS);
-            myAnimation = nullptr;
-            gameImage = new Image("nimotsuKunImage2.dds");
-            myGame = new GamePlay("3");
-            isInit = true;
+            title();
         }
         else
         {
-            if (myAnimation != nullptr)
-            {
-                if (!myAnimation->draw())
-                {
-                    SAFE_DELETE(myAnimation);
-                }
-                return;
-            }
-
-            if (myGame->check())
-            {
-                playerWantToQuit = true;
-                GameLib::cout << "恭喜! 您共用"
-                    << myGame->getStep() << "步通关!" << GameLib::endl;
-            }
-
-            Framework f = Framework::instance();
-            for (int i = 0; i < INPUT_TYPE_SIZE; i++)
-            {
-                if (f.isKeyOn(inputTable[i]))
-                {
-                    myGame->move(inputTable[i]);
-                    myGame->draw();
-                    break;
-                }
-            }
-            if (f.isKeyOn(inputTable[INPUT_Q]))
-            {
-                playerWantToQuit = true;
-            }
+            game();
         }
 
         if (playerWantToQuit)

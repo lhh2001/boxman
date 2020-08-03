@@ -25,6 +25,7 @@ public:
 	int getHeight() const;
 	int getGridSize() const;
 	void draw(int x, int y, char object, int shiftX = 0, int shiftY = 0);
+	void drawEntire();
 };
 
 #endif // !INCLUDED_IMAGE_H

@@ -18,6 +18,8 @@ void GamePlay::initMap(std::string input) //³õÊ¼»¯µØÍ¼
     std::ifstream f(input, std::ifstream::binary);
     char c;
     f >> n >> m;
+    map.clear();
+    image.clear();
     for (int i = 0; i < n; i++)
     {
         map.push_back({});
@@ -97,22 +99,22 @@ void GamePlay::draw()
     {
         for (int j = 0; j < m; j++)
         {
-            if (tmp[i][j] != image[i][j])
+            if (image[i][j] != tmp[i][j])
             {
                 if (image[i][j] == '@' || tmp[i][j] == '@' && myAnimation != nullptr)
                     continue;
                 if (image[i][j] == '#' || tmp[i][j] == '#' && myAnimation != nullptr)
                     continue;
-                if (tmp[i][j] != '+')
-                {
-                    gameImage->draw(j, i, ' ');
-                }
-                if (image[i][j] == '.')
-                {
-                    gameImage->draw(j, i, '.');
-                }
-                gameImage->draw(j, i, tmp[i][j]);
             }
+            if (tmp[i][j] != '+')
+            {
+                gameImage->draw(j, i, ' ');
+            }
+            if (map[i][j] == '.')
+            {
+                gameImage->draw(j, i, '.');
+            }
+            gameImage->draw(j, i, tmp[i][j]);
         }
     }
     image = tmp;

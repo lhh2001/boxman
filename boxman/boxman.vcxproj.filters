@@ -75,5 +75,11 @@
     <Image Include="nimotsuKunImage2.dds">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="title.dds">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="loading.dds">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>
