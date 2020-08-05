@@ -158,6 +158,13 @@
     <ClInclude Include="Boxman.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sequence\Game\Loading.h" />
+    <ClInclude Include="Sequence\Game\Menu.h" />
+    <ClInclude Include="Sequence\Game\Parent.h" />
+    <ClInclude Include="Sequence\Game\Play.h" />
+    <ClInclude Include="Sequence\MapSelect.h" />
+    <ClInclude Include="Sequence\Parent.h" />
+    <ClInclude Include="Sequence\Title.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Image.h" />
@@ -170,17 +177,28 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Sequence\Game\Loading.cpp" />
+    <ClCompile Include="Sequence\Game\Menu.cpp" />
+    <ClCompile Include="Sequence\Game\Parent.cpp" />
+    <ClCompile Include="Sequence\Game\Play.cpp" />
+    <ClCompile Include="Sequence\MapSelect.cpp" />
+    <ClCompile Include="Sequence\Parent.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)SequenceParent</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Sequence\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="boxman.ico" />
-    <Image Include="loading.dds" />
-    <Image Include="nimotsuKunImage.dds" />
-    <Image Include="nimotsuKunImage2.dds" />
+    <Image Include="images\loading.dds" />
+    <Image Include="images\mapSelect.dds" />
+    <Image Include="images\menu.dds" />
+    <Image Include="images\nimotsuKunImage.dds" />
+    <Image Include="images\nimotsuKunImage2.dds" />
+    <Image Include="images\title.dds" />
     <Image Include="small.ico" />
-    <Image Include="title.dds" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,6 +39,27 @@
     <ClInclude Include="Boxman.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Sequence\MapSelect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Parent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Title.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Loading.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Menu.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Parent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Play.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp">
@@ -56,6 +77,27 @@
     <ClCompile Include="Boxman.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Sequence\Game\Loading.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Menu.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Parent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Play.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\MapSelect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Parent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Title.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc">
@@ -69,16 +111,22 @@
     <Image Include="boxman.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="nimotsuKunImage.dds">
+    <Image Include="images\loading.dds">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="nimotsuKunImage2.dds">
+    <Image Include="images\nimotsuKunImage.dds">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="title.dds">
+    <Image Include="images\nimotsuKunImage2.dds">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="loading.dds">
+    <Image Include="images\title.dds">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\mapSelect.dds">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\menu.dds">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

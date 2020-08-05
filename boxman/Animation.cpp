@@ -1,11 +1,12 @@
 #include "Animation.h"
 #include "Image.h"
-#include "boxman.h"
+#include "Sequence/Game/Parent.h"
+#include "GamePlay.h"
 
 Animation::Animation() : cnt(0), dir(-1) {}
 
-Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir)
-    : cnt(0), dir(paramDir)
+Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir, Sequence::Game::Parent* paramParent)
+    : cnt(0), dir(paramDir), parent(paramParent)
 {
 	background.push_back(manXY);
 	background.push_back(nowXY);
@@ -13,8 +14,8 @@ Animation::Animation(vec2 manXY, vec2 nowXY, int paramDir)
 	foreground.push_back(manXY);
 }
 
-Animation::Animation(vec2 manXY, vec2 nowXY, vec2 nowBoxXY, int paramDir)
-    : cnt(1), dir(paramDir)
+Animation::Animation(vec2 manXY, vec2 nowXY, vec2 nowBoxXY, int paramDir, Sequence::Game::Parent* paramParent)
+    : cnt(1), dir(paramDir), parent(paramParent)
 {
 	background.push_back(manXY);
 	background.push_back(nowXY);
@@ -31,26 +32,26 @@ bool Animation::draw()
     {
         int x = item.second;
         int y = item.first;
-        gameImage->draw(x, y, ' ');
-        if (map[y][x] == '.')
+        parent->myGamePlay->gameImage->draw(x, y, ' ');
+        if (parent->map[y][x] == '.')
         {
-            gameImage->draw(x, y, '.');
+            parent->myGamePlay->gameImage->draw(x, y, '.');
         }
     }
     for (auto item : foreground)
     {
         int x = item.second;
         int y = item.first;
-        if (image[y + shiftX[dir]][x + shiftY[dir]] == '@')
+        if (parent->image[y + parent->shiftX[dir]][x + parent->shiftY[dir]] == '@')
         {
-            gameImage->draw(x, y, '@', shiftY[dir] * cnt, shiftX[dir] * cnt);
+            parent->myGamePlay->gameImage->draw(x, y, '@', parent->shiftY[dir] * cnt, parent->shiftX[dir] * cnt);
         }
         else
         {
-            gameImage->draw(x, y, '#', shiftY[dir] * cnt, shiftX[dir] * cnt);
+            parent->myGamePlay->gameImage->draw(x, y, '#', parent->shiftY[dir] * cnt, parent->shiftX[dir] * cnt);
         }
     }
-    if (cnt == gameImage->getGridSize())
+    if (cnt == parent->myGamePlay->gameImage->getGridSize())
     {
         return false;
     }

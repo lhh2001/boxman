@@ -3,7 +3,16 @@
 
 #include <vector>
 #include <set>
-#include <string>
+
+namespace Sequence
+{
+    namespace Game
+    {
+        class Parent;
+    }
+}
+
+class Image;
 
 class GamePlay
 {
@@ -13,16 +22,19 @@ private:
     std::set<std::pair<int, int>> target; //目标坐标
     int n, m;                             //地图的大小
     int step;
+    Sequence::Game::Parent* parent;
 
 public:
     GamePlay();
-    GamePlay(std::string input);
+    ~GamePlay();
+    GamePlay(unsigned input, Sequence::Game::Parent* paramParent);
 
-    void initMap(std::string input); //初始化地图
+    void initMap(unsigned input); //初始化地图
     void move(char c);
     void draw();
     bool check();        //检查是否达到胜利的条件
     int getStep() const; //获得任务移动的步数
+    Image* gameImage;
 };
 
 #endif // !INCLUDED_GAMEPLAY_H
