@@ -15,7 +15,8 @@ namespace Sequence
 		class Loading;
 		class Menu;
 		class Play;
-		
+		class Clear;
+
 		class Parent
 		{
 		public:
@@ -26,6 +27,7 @@ namespace Sequence
 				SEQ_LOADING,
 				SEQ_MENU,
 				SEQ_PLAY,
+				SEQ_CLEAR,
 				SEQ_NONE
 			};
 			GamePlay* myGamePlay; //ÓÎÏ·Ö÷Ìå
@@ -45,6 +47,7 @@ namespace Sequence
 			Loading* loading;
 			Menu* menu;
 			Play* play;
+			Clear* clear;
 			SeqID next;
 		};
 	}

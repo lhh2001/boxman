@@ -3,6 +3,7 @@
 #include "Loading.h"
 #include "Menu.h"
 #include "Play.h"
+#include "Clear.h"
 #include "GameLib/GameLib.h"
 #include "../../Animation.h"
 #include "../../GamePlay.h"
@@ -12,8 +13,8 @@ namespace Sequence
 	namespace Game
 	{
 		Parent::Parent(unsigned paramMapID) : loading(nullptr),
-			menu(nullptr), play(nullptr), myGamePlay(nullptr),
-			myAnimation(nullptr), next(SEQ_NONE)
+			menu(nullptr), play(nullptr),  clear(nullptr),
+			myGamePlay(nullptr), myAnimation(nullptr), next(SEQ_NONE)
 		{
 			mapID = paramMapID;
 			loading = new Loading();
@@ -32,6 +33,10 @@ namespace Sequence
 			else if (play != nullptr)
 			{
 				play->update(this);
+			}
+			else if (clear != nullptr)
+			{
+				clear->update(this);
 			}
 
 			switch (next)
@@ -59,6 +64,10 @@ namespace Sequence
 				image.clear();
 				loading = new Loading();
 				break;
+			case SEQ_CLEAR:
+				SAFE_DELETE(play);
+				SAFE_DELETE(menu);
+				clear = new Clear();
 			default:
 				break;
 			}
@@ -75,7 +84,9 @@ namespace Sequence
 			SAFE_DELETE(loading);
 			SAFE_DELETE(menu);
 			SAFE_DELETE(play);
+			SAFE_DELETE(clear);
 			SAFE_DELETE(myGamePlay);
+			SAFE_DELETE(myAnimation);
 		}
 	}
 }

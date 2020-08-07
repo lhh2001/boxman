@@ -60,6 +60,9 @@
     <ClInclude Include="Sequence\Game\Play.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Sequence\Game\Clear.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp">
@@ -96,6 +99,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Sequence\Title.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Clear.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

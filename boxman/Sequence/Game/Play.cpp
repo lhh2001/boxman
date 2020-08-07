@@ -26,7 +26,7 @@ namespace Sequence
             {
                 GameLib::cout << "恭喜! 您共用"
                     << parent->myGamePlay->getStep() << "步通关!" << GameLib::endl;
-                parent->moveTo(Parent::SEQ_TITLE);
+                parent->moveTo(Parent::SEQ_CLEAR);
                 return;
             }
             for (int i = 0; i < INPUT_TYPE_SIZE; i++)

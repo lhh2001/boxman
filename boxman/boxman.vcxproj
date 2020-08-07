@@ -158,6 +158,7 @@
     <ClInclude Include="Boxman.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Sequence\Game\Clear.h" />
     <ClInclude Include="Sequence\Game\Loading.h" />
     <ClInclude Include="Sequence\Game\Menu.h" />
     <ClInclude Include="Sequence\Game\Parent.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Sequence\Game\Clear.cpp" />
     <ClCompile Include="Sequence\Game\Loading.cpp" />
     <ClCompile Include="Sequence\Game\Menu.cpp" />
     <ClCompile Include="Sequence\Game\Parent.cpp" />
