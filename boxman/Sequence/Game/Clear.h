@@ -1,6 +1,8 @@
 #ifndef INCLUDED_SEQUENCE_GAME_CLEAR_H
 #define INCLUDED_SEQUENCE_GAME_CLEAR_H
 
+#include <string>
+
 class Image;
 
 namespace Sequence
@@ -19,6 +21,7 @@ namespace Sequence
 		private:
 			Image* clearImage;
 			int cnt;
+			std::string step;
 		};
 	}
 }

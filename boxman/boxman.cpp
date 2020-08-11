@@ -1,11 +1,12 @@
 ﻿#include "GameLib/Framework.h"
 #include "Sequence/Parent.h"
 #include "Boxman.h"
+#include "StringRenderer.h"
+#include <sstream>
 
 using namespace GameLib;
 
 Sequence::Parent* rootSequence = nullptr;
-int cnt = 0;
 
 namespace GameLib
 {
@@ -14,15 +15,11 @@ namespace GameLib
         if (!rootSequence)
         {
             rootSequence = new Sequence::Parent();
+            StringRenderer::create("fonts/font.dds");
         }
 
-        if (cnt >= 60)
-        {
-            cnt = 0;
-            cout << " FrameRate:" << frameRate() << endl;
-        }
-        cnt++;
         rootSequence->update();
+        StringRenderer::getInstance()->draw(33, 0, ("FPS:" + std::to_string(frameRate())).c_str());
         if (isKeyOn('q'))
         {
             requestEnd();
@@ -30,6 +27,7 @@ namespace GameLib
         if (isEndRequested())
         {
             SAFE_DELETE(rootSequence);
+            StringRenderer::destroy();
         }
 	}
 }

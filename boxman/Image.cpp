@@ -18,6 +18,14 @@ Image::Image(const char* fileName) : width(0), height(0), data(nullptr)
 				data[i] = f.getUnsigned(128 + i * 4);
 			}
 		}
+		else
+		{
+			STRONG_ASSERT(0 && "不是DDS格式的文件");
+		}
+	}
+	else
+	{
+		STRONG_ASSERT(0 && "文件路径错误或文件不存在");
 	}
 }
 
@@ -103,4 +111,9 @@ void Image::drawEntire()
 int Image::getGridSize() const
 {
 	return gridSize;
+}
+
+unsigned* Image::getData()
+{
+	return data;
 }

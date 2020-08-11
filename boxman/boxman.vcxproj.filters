@@ -63,6 +63,9 @@
     <ClInclude Include="Sequence\Game\Clear.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="StringRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp">
@@ -104,6 +107,9 @@
     <ClCompile Include="Sequence\Game\Clear.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="StringRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc">
@@ -133,6 +139,12 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="images\menu.dds">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="fonts\font.dds">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="images\background.dds">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

@@ -3,12 +3,23 @@
 #include "GameLib/GameLib.h"
 #include "Parent.h"
 #include "../../GamePlay.h"
+#include "../../StringRenderer.h"
+
+namespace
+{
+	const Sequence::Game::Parent::SeqID selectionTable[Sequence::Game::Menu::selectionSize] = {
+				Sequence::Game::Parent::SEQ_LOADING,
+				Sequence::Game::Parent::SEQ_MAP_SELECT,
+				Sequence::Game::Parent::SEQ_TITLE,
+				Sequence::Game::Parent::SEQ_PLAY
+	};
+}
 
 namespace Sequence
 {
 	namespace Game
 	{
-		Menu::Menu() : menuImage(nullptr)
+		Menu::Menu() : menuImage(nullptr), selection(0)
 		{
 			menuImage = new Image("images/menu.dds");
 		}
@@ -16,33 +27,33 @@ namespace Sequence
 		void Menu::update(Parent* parent)
 		{
 			/*
-			1. 重新开始
-			2. 选关
-			3. 转到标题画面
-			4. 返回
+			0. 重新开始
+			1. 回到选关页面
+			2. 回到标题页面
+			3. 继续游戏
 			*/
-			parent->myGamePlay->draw(); //先画前景
-			menuImage->drawEntire();    //再画背景
 			GameLib::Framework f = GameLib::Framework::instance();
-			for (int i = 1; i <= selectionSize; i++)
+			if (f.isKeyTriggered('w'))
 			{
-				if (f.isKeyTriggered('1')) //重新开始
+				if (selection > 0)
 				{
-					parent->moveTo(Parent::SEQ_LOADING);
-				}
-				else if (f.isKeyTriggered('2'))
-				{
-					parent->moveTo(Parent::SEQ_MAP_SELECT);
-				}
-				else if (f.isKeyTriggered('3'))
-				{
-					parent->moveTo(Parent::SEQ_TITLE);
-				}
-				else if (f.isKeyTriggered('4'))
-				{
-					parent->moveTo(Parent::SEQ_PLAY);
+					selection--;
 				}
 			}
+			if (f.isKeyTriggered('s'))
+			{
+				if (selection < selectionSize - 1)
+				{
+					selection++;
+				}
+			}
+			if (f.isKeyTriggered('f'))
+			{
+				parent->moveTo(selectionTable[selection]);
+			}
+			parent->myGamePlay->draw(); //先画前景
+			menuImage->drawEntire();    //再画背景
+			StringRenderer::getInstance()->draw(1, 2 + selection, ">");
 		}
 
 		Menu::~Menu()

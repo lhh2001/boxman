@@ -3,12 +3,17 @@
 #include "Parent.h"
 #include "../../Animation.h"
 #include "../../GamePlay.h"
+#include "../../Image.h"
 
 namespace Sequence
 {
 	namespace Game
 	{
-		Play::Play() {}
+		Play::Play()
+        {
+            Image background("images/background.dds");
+            background.drawEntire();
+        }
 		Play::~Play() {}
 		void Play::update(Parent* parent)
 		{
@@ -24,8 +29,6 @@ namespace Sequence
 
             if (parent->myGamePlay->check())
             {
-                GameLib::cout << "恭喜! 您共用"
-                    << parent->myGamePlay->getStep() << "步通关!" << GameLib::endl;
                 parent->moveTo(Parent::SEQ_CLEAR);
                 return;
             }

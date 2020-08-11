@@ -171,6 +171,7 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="StringRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Boxman.cpp" />
@@ -188,12 +189,15 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)SequenceParent</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Sequence\Title.cpp" />
+    <ClCompile Include="StringRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="boxman.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="boxman.ico" />
+    <Image Include="fonts\font.dds" />
+    <Image Include="images\background.dds" />
     <Image Include="images\loading.dds" />
     <Image Include="images\mapSelect.dds" />
     <Image Include="images\menu.dds" />

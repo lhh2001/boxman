@@ -15,10 +15,11 @@ namespace Sequence
 			Menu();
 			~Menu();
 			void update(Parent* parent);
+			static const int selectionSize = 4;
 
 		private:
 			Image* menuImage;
-			const int selectionSize = 4;
+			int selection;
 		};
 	}
 }

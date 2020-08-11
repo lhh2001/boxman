@@ -11,7 +11,7 @@ namespace Sequence
 	{
 	private:
 		Image* mapSelectImage;
-		const int mapSize = 3; //地图大小
+		const int mapSize = 9; //地图大小
 
 	public:
 		MapSelect();
