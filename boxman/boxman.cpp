@@ -1,7 +1,7 @@
-﻿#include "GameLib/Framework.h"
-#include "Sequence/Parent.h"
+﻿#include "Sequence/Parent.h"
 #include "Boxman.h"
 #include "StringRenderer.h"
+#include "GameLib/Framework.h"
 #include <sstream>
 
 using namespace GameLib;
@@ -17,7 +17,6 @@ namespace GameLib
             rootSequence = new Sequence::Parent();
             StringRenderer::create("fonts/font.dds");
         }
-
         rootSequence->update();
         StringRenderer::getInstance()->draw(33, 0, ("FPS:" + std::to_string(frameRate())).c_str());
         if (isKeyOn('q'))

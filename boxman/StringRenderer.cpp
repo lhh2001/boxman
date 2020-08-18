@@ -13,7 +13,7 @@ void StringRenderer::create(const char* fileName)
 void StringRenderer::destroy()
 {
 	STRONG_ASSERT(!(instance == nullptr) && "不允许执行两次析构!");
-	instance->~StringRenderer();
+	SAFE_DELETE(instance);
 }
 
 StringRenderer::StringRenderer(const char* fileName) : fontImage(nullptr)
